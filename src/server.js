@@ -22,20 +22,15 @@ app.get("/todos", async (_req, res) =>{
     }
 });
 
-app.post("/todos", async (req, res) => {
-    try {
-        const { title } = req.body ?? {};
+app.post("/todos", async (req, res) =>{
 
-        if (!title || !title.trim()) {
-            return res.status(400).json({ error: "title is required" });
-        }
-
-        const todo = await TodoModel.create({ title: title.trim() });
-
-        return res.status(201).json(todo); 
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
+    console.log(req.body);
+    const {title} = req.body ?? {};
+    if (!title || !title.trim()){
+        return res.status(400).json({error: "title is required" });
     }
+    const todo = await TodoModel.create({ title: title.trim() });
+    res.status(201).json(todo);
 });
 
 app.listen(3000, () => console.log("listening on http://localhost:3000"));
