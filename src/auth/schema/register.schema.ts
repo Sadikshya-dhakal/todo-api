@@ -1,0 +1,10 @@
+// validation ko lagi use hunxa
+
+import {z} from "zod/v3";
+
+export const registerSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 character long"),
+});
+
+export type RegisterDto = z.infer<typeof registerSchema>;
